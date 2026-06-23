@@ -19,6 +19,6 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ### 🧹 Outros (Chore)
 
-- Adicionar Changelog e Git/Jira Flow do projeto. [#KAN-2]
+- Setup Inicial do Front-end. [#BOOK-6]
 
 ---
