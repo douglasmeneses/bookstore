@@ -1,0 +1,371 @@
+# 📚 Projeto BOOKSTORE
+
+> Este documento descreve a arquitetura da interface, os componentes utilizados, a estrutura do projeto e o processo de instalação.
+---
+# 📑 Sumário
+
+- Instalação do shadcn/ui
+- Componentes Utilizados
+- Organização das Telas
+- Boas Práticas
+- Próximos Passos
+---
+# 🧩 Instalando o shadcn/ui
+
+Inicialização
+
+```bash
+npx shadcn@latest init
+```
+
+Durante a instalação escolha:
+
+```
+TypeScript → Yes
+
+Style → Default
+
+Base Color → Slate
+
+CSS Variables → Yes
+
+Tailwind Config → tailwind.config.ts
+
+Components → components
+
+Utils → lib/utils.ts
+```
+
+---
+
+# 📦 Componentes necessários
+
+Instale os componentes abaixo:
+
+```bash
+npx shadcn@latest add button
+```
+
+```bash
+npx shadcn@latest add input
+```
+
+```bash
+npx shadcn@latest add card
+```
+
+```bash
+npx shadcn@latest add avatar
+```
+
+```bash
+npx shadcn@latest add badge
+```
+
+```bash
+npx shadcn@latest add navigation-menu
+```
+
+```bash
+npx shadcn@latest add dialog
+```
+
+```bash
+npx shadcn@latest add alert-dialog
+```
+
+```bash
+npx shadcn@latest add field
+```
+
+```bash
+npx shadcn@latest add input-group
+```
+
+```bash
+npx shadcn@latest add separator
+```
+
+```bash
+npx shadcn@latest add tabs
+```
+
+```bash
+npx shadcn@latest add carousel
+```
+
+```bash
+npx shadcn@latest add scroll-area
+```
+
+```bash
+npx shadcn@latest add skeleton
+```
+
+```bash
+npx shadcn@latest add sonner
+```
+
+```bash
+npx shadcn@latest add pagination
+```
+
+```bash
+npx shadcn@latest add empty
+```
+
+```bash
+npx shadcn@latest add aspect-ratio
+```
+
+```bash
+npx shadcn@latest add breadcrumb
+```
+
+```bash
+npx shadcn@latest add command
+```
+
+---
+
+# 🖥️ Organização das Telas
+
+---
+
+## Home
+
+### Componentes
+
+- Navigation Menu
+- Input Group
+- Carousel
+- Card
+- Badge
+- Button
+- Scroll Area
+
+### Descrição
+
+Tela inicial contendo:
+
+- Busca
+- Livros mais vendidos
+- Favoritos
+- Carrinho lateral
+
+---
+
+## Página do Livro
+
+### Componentes
+
+- Card
+- Aspect Ratio
+- Tabs
+- Separator
+- Typography
+- Badge
+- Button
+
+### Conteúdo
+
+- Imagem
+- Nome
+- Autor
+- Avaliações
+- Preço
+- Descrição
+- Botão Comprar
+
+---
+
+## Login
+
+### Componentes
+
+- Dialog
+- Field
+- Input
+- Button
+
+### Campos
+
+- Email
+- Senha
+
+---
+
+## Cadastro
+
+### Componentes
+
+- Dialog
+- Field
+- Input
+- Select
+- Button
+
+---
+## Recuperação de Senha
+### Componentes
+
+- Dialog
+- Input
+- Alert
+- Button
+
+---
+
+## Perfil
+### Componentes
+
+- Avatar
+- Card
+- Button
+- Separator
+
+### Funcionalidades
+
+- Alterar Dados
+- Alterar Senha
+- Gerenciar Endereços
+
+---
+
+## Endereços
+### Componentes
+
+- Card
+- Item
+- Button
+- Dialog
+
+### Funcionalidades
+
+- Listagem
+- Cadastro
+- Exclusão
+- Edição
+
+---
+
+## Favoritos
+
+### Componentes
+
+- Carousel
+- Card
+- Badge
+
+---
+
+## Carrinho
+
+### Componentes
+
+- Scroll Area
+- Card
+- Button
+- Separator
+
+### Informações
+
+- Produtos
+- Quantidade
+- Valor
+- Total
+
+---
+
+## Pesquisa
+
+### Componentes
+
+- Command
+- Input Group
+
+### Recursos
+
+- Autocomplete
+- Pesquisa instantânea
+
+---
+
+## Página 404
+
+### Componentes
+
+- Empty
+- Button
+- Typography
+
+---
+
+# 📋 Componentes Utilizados
+
+| Componente | Utilização |
+|------------|------------|
+| Button | Botões gerais |
+| Card | Produtos |
+| Avatar | Perfil |
+| Badge | Promoções |
+| Carousel | Mais vendidos |
+| Dialog | Login e Cadastro |
+| Alert Dialog | Confirmações |
+| Field | Formulários |
+| Input | Campos |
+| Input Group | Barra de pesquisa |
+| Navigation Menu | Menu superior |
+| Tabs | Descrição do livro |
+| Scroll Area | Carrinho |
+| Skeleton | Loading |
+| Sonner | Notificações |
+| Separator | Separação visual |
+| Pagination | Listagem |
+| Empty | Página 404 |
+| Aspect Ratio | Capas dos livros |
+| Breadcrumb | Navegação |
+| Command | Pesquisa |
+
+---
+
+# 🔔 Notificações
+
+Será utilizado o **Sonner**.
+
+Exemplos:
+
+- Login realizado
+- Cadastro realizado
+- Livro adicionado ao carrinho
+- Livro favoritado
+- Endereço cadastrado
+- Produto removido
+- Erro ao conectar com servidor
+
+---
+
+# ⏳ Loading
+
+Durante chamadas da API utilizar:
+
+- Skeleton
+- Spinner
+
+Nunca deixar telas vazias enquanto aguarda resposta.
+
+---
+# 🎨 Padrão Visual
+
+Utilizar:
+
+- Cards para conteúdos
+- Dialogs para formulários
+- Alert Dialog para exclusões
+- Sonner para notificações
+- Badge para promoções
+- Carousel para destaques
+
+Evitar criar componentes personalizados quando houver equivalente no shadcn/ui.
+
+---
