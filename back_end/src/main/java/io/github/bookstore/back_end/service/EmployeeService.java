@@ -9,6 +9,7 @@ import io.github.bookstore.back_end.repositories.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -17,22 +18,31 @@ import java.util.UUID;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeMapper employeeMapper;
+
     @Transactional
     public EmployeeCreateResponseDTO createEmployee(EmployeeRequestDTO employeeDTO) {
         if (employeeRepository.existsByEmail(employeeDTO.email())) {
             throw new IllegalArgumentException("Este email já existe!");
         }
-        Employee employee = EmployeeMapper.toEntity(employeeDTO);
+        if (employeeRepository.existsByCpf(employeeDTO.cpf())) {
+            throw new IllegalArgumentException("Este CPF ja existe!");
+        }
+        if (employeeRepository.existsByRegistrationNumber(employeeDTO.registrationNumber())) {
+            throw new IllegalArgumentException("Este numero de registro ja existe!");
+        }
+        Employee employee = employeeMapper.toEntity(employeeDTO);
         Employee savedEmployee = employeeRepository.save(employee);
 
-        return EmployeeMapper.toCreateResponseDTO(savedEmployee);
+        return employeeMapper.toCreateResponseDTO(savedEmployee);
     }
 
     public EmployeeResponseDTO getEmployeeById(UUID id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
-        return EmployeeMapper.toResponseDTO(employee);
+        return employeeMapper.toResponseDTO(employee);
     }
+
     private Employee findEmployeeEntityById(UUID id) {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
@@ -42,26 +52,35 @@ public class EmployeeService {
         Employee employee = findEmployeeEntityById(id);
         employeeRepository.delete(employee);
     }
-    public List<EmployeeResponseDTO> getAllEmployees(){
+
+    public List<EmployeeResponseDTO> getAllEmployees() {
         return employeeRepository.findAll()
                 .stream()
-                .map(EmployeeMapper::toResponseDTO)
+                .map(employeeMapper::toResponseDTO)
                 .toList();
     }
 
     @Transactional
-    public EmployeeResponseDTO updateEmployee(UUID id, EmployeeRequestDTO employeeDTO){
+    public EmployeeResponseDTO updateEmployee(UUID id, EmployeeRequestDTO employeeDTO) {
         Employee employee = findEmployeeEntityById(id);
 
         boolean emailChanged = !employeeDTO.email().equals(employee.getEmail());
+        boolean cpfChanged = !employeeDTO.cpf().equals(employee.getCpf());
+        boolean registrationNumberChanged = !employeeDTO.registrationNumber().equals(employee.getRegistrationNumber());
 
-        if(emailChanged && employeeRepository.existsByEmail(employeeDTO.email())){
-            throw new IllegalArgumentException("Email de funcionário já existe");
+        if (emailChanged && employeeRepository.existsByEmail(employeeDTO.email())) {
+            throw new IllegalArgumentException("Email de Funcionário já existe");
+        }
+        if (cpfChanged && employeeRepository.existsByCpf(employeeDTO.cpf())) {
+            throw new IllegalArgumentException("CPF de Funcionario ja existe");
+        }
+        if (registrationNumberChanged && employeeRepository.existsByRegistrationNumber(employeeDTO.registrationNumber())) {
+            throw new IllegalArgumentException("Numero de registro de Funcionario ja existe");
         }
 
-        EmployeeMapper.updateEntity(employee, employeeDTO);
+        employeeMapper.updateEntity(employee, employeeDTO);
         Employee updatedEmployee = employeeRepository.save(employee);
 
-        return EmployeeMapper.toResponseDTO(updatedEmployee);
+        return employeeMapper.toResponseDTO(updatedEmployee);
     }
 }

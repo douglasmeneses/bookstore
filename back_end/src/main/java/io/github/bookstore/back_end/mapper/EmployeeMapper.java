@@ -4,51 +4,24 @@ import io.github.bookstore.back_end.model.entity.Employee;
 import io.github.bookstore.back_end.model.entityDto.EmployeeCreateResponseDTO;
 import io.github.bookstore.back_end.model.entityDto.EmployeeRequestDTO;
 import io.github.bookstore.back_end.model.entityDto.EmployeeResponseDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-import java.time.LocalDateTime;
+@Mapper(componentModel = "spring")
+public interface EmployeeMapper {
 
-public class EmployeeMapper {
-    private  EmployeeMapper(){
-    }
-    public static Employee toEntity(EmployeeRequestDTO dto) {
-        LocalDateTime now = LocalDateTime.now();
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
+    Employee toEntity(EmployeeRequestDTO dto);
 
-        return new Employee(
-                null,
-                dto.registrationNumber(),
-                dto.cpf(),
-                dto.name(),
-                dto.email(),
-                dto.password(),
-                now,
-                now
-        );
-    }
-    public static EmployeeResponseDTO toResponseDTO(Employee employee) {
-        return new EmployeeResponseDTO(
-                employee.getName(),
-                employee.getEmail(),
-                employee.getRegistrationNumber(),
-                employee.getCreatedAt(),
-                employee.getUpdatedAt()
-        );
-    }
+    EmployeeResponseDTO toResponseDTO(Employee employee);
 
-    public static EmployeeCreateResponseDTO toCreateResponseDTO(Employee employee) {
-        return new EmployeeCreateResponseDTO(
-                employee.getId(),
-                employee.getName(),
-                employee.getEmail()
+    EmployeeCreateResponseDTO toCreateResponseDTO(Employee employee);
 
-        );
-    }
-
-    public static void updateEntity(Employee employee, EmployeeRequestDTO dto) {
-        employee.setName(dto.name());
-        employee.setCpf(dto.cpf());
-        employee.setRegistrationNumber(dto.registrationNumber());
-        employee.setEmail(dto.email());
-        employee.setPassword(dto.password());
-        employee.setUpdatedAt(LocalDateTime.now());
-    }
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
+    void updateEntity(@MappingTarget Employee employee, EmployeeRequestDTO dto);
 }
