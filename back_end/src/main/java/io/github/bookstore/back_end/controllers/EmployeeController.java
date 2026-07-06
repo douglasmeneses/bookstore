@@ -3,6 +3,7 @@ package io.github.bookstore.back_end.controllers;
 import io.github.bookstore.back_end.model.entityDto.EmployeeCreateResponseDTO;
 import io.github.bookstore.back_end.model.entityDto.EmployeeRequestDTO;
 import io.github.bookstore.back_end.model.entityDto.EmployeeResponseDTO;
+import io.github.bookstore.back_end.model.entityDto.EmployeeUpdateRequestDTO;
 import io.github.bookstore.back_end.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(
             @PathVariable UUID id,
-            @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO
+            @Valid @RequestBody EmployeeUpdateRequestDTO employeeRequestDTO
     ) {
         return ResponseEntity.ok(employeeService.updateEmployee(id, employeeRequestDTO));
     }
