@@ -163,14 +163,14 @@ class BookServiceTest {
         return new BookUpdateDTO(
                 ISBN,
                 "Clean Code - Updated",
-                null,
-                null,
-                null,
+                "Updated description.",
+                "clean-code-updated.jpg",
+                "12345678000199",
                 12,
                 89.90,
-                null,
-                null,
-                null
+                4.9,
+                Language.ENGLISH,
+                464
         );
     }
 
