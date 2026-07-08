@@ -1,6 +1,6 @@
 package io.github.bookstore.back_end.service;
 
-import io.github.bookstore.back_end.exception.ApiException;
+import io.github.bookstore.back_end.exceptions.ApiException;
 import io.github.bookstore.back_end.mapper.PublisherMapper;
 import io.github.bookstore.back_end.model.Entity.Publisher;
 import io.github.bookstore.back_end.model.EntityDTO.PublisherDTO;

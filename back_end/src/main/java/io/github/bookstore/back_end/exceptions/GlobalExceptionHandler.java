@@ -1,4 +1,4 @@
-package io.github.bookstore.back_end.exception;
+package io.github.bookstore.back_end.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
