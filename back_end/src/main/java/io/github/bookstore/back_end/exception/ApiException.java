@@ -1,4 +1,4 @@
-package io.github.bookstore.back_end.dto.exceptions;
+package io.github.bookstore.back_end.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

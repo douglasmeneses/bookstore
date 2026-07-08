@@ -1,6 +1,5 @@
-package io.github.bookstore.back_end.exceptions;
+package io.github.bookstore.back_end.exception;
 
-import io.github.bookstore.back_end.dto.exceptions.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
