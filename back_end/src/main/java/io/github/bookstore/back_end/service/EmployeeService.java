@@ -1,6 +1,6 @@
 package io.github.bookstore.back_end.service;
 
-import io.github.bookstore.back_end.dto.exceptions.ApiException;
+import io.github.bookstore.back_end.exceptions.ApiException;
 import io.github.bookstore.back_end.mapper.EmployeeMapper;
 import io.github.bookstore.back_end.model.entity.Employee;
 import io.github.bookstore.back_end.model.entityDto.EmployeeCreateResponseDTO;
