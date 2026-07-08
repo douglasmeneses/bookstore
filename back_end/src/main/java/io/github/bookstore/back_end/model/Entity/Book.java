@@ -1,13 +1,7 @@
-package io.github.bookstore.back_end.models;
+package io.github.bookstore.back_end.model.Entity;
 
-import io.github.bookstore.back_end.models.enums.Language;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import io.github.bookstore.back_end.model.enums.Language;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -31,8 +25,9 @@ public class Book {
     private String title;
     private String description;
     private String image;
-    @Column(name = "publisher_cnpj")
-    private String publisherCnpj;
+    @JoinColumn(name = "publisher_id")
+    @OneToOne
+    private Publisher publisher;
     @Column(name = "stock_quantity")
     private int stockQuantity;
     private double price;

@@ -1,10 +1,11 @@
-package io.github.bookstore.back_end.services;
+package io.github.bookstore.back_end.service;
 
-import io.github.bookstore.back_end.dto.book.BookCreateDTO;
-import io.github.bookstore.back_end.dto.book.BookUpdateDTO;
-import io.github.bookstore.back_end.dto.exceptions.ApiException;
+import io.github.bookstore.back_end.model.Entity.Publisher;
+import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.exceptions.ApiException;
 import io.github.bookstore.back_end.mapper.BookMapper;
-import io.github.bookstore.back_end.models.Book;
+import io.github.bookstore.back_end.model.Entity.Book;
 import io.github.bookstore.back_end.repositories.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,12 +21,13 @@ public class BookService {
 
     private BookMapper bookMapper;
     private BookRepository bookRepository;
+    private PublisherService publisherService;
 
     public ResponseEntity<Book> getBookByIsbn(String isbn) {
         Optional<Book> isBookExist = bookRepository.findById(isbn);
 
         if (isBookExist.isEmpty()) {
-            throw new ApiException(String.format("Book with isbn %s not exist.", isbn), HttpStatus.BAD_REQUEST);
+            throw new ApiException(String.format("Livro com isbn %s não existe.", isbn), HttpStatus.BAD_REQUEST);
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(isBookExist.get());
@@ -35,10 +37,17 @@ public class BookService {
         Optional<Book> isBookExist = bookRepository.findById(bookCreateDTO.isbn());
 
         if (isBookExist.isPresent()) {
-            throw new ApiException(String.format("Book with isbn %s already exist.", bookCreateDTO.isbn()), HttpStatus.BAD_REQUEST);
+            throw new ApiException(String.format("Livro com isbn %s já existe.", bookCreateDTO.isbn()), HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<Publisher> isPublishExist = publisherService.findPublisherById(bookCreateDTO.publisherId());
+
+        if (isPublishExist.isEmpty()) {
+            throw new ApiException("Editora com não foi encontrada.", HttpStatus.BAD_REQUEST);
         }
 
         Book book = bookMapper.toEntity(bookCreateDTO);
+        book.setPublisher(isPublishExist.get());
         bookRepository.save(book);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
@@ -49,7 +58,7 @@ public class BookService {
         Optional<Book> isBookExist = bookRepository.findById(bookUpdateDTO.isbn());
 
         if (isBookExist.isEmpty()) {
-            throw new ApiException(String.format("Book with isbn %s not exist.", bookUpdateDTO.isbn()), HttpStatus.BAD_REQUEST);
+            throw new ApiException(String.format("Livro com isbn %s não existe.", bookUpdateDTO.isbn()), HttpStatus.BAD_REQUEST);
         }
 
         Book book = isBookExist.get();
@@ -57,7 +66,7 @@ public class BookService {
         bookRepository.save(book);
 
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Book updated successfully."
+                "message", "Livro atualizado com sucesso."
         ));
 
     }
@@ -66,13 +75,13 @@ public class BookService {
         Optional<Book> isBookExist = bookRepository.findById(isbn);
 
         if (isBookExist.isEmpty()) {
-            throw new ApiException(String.format("Book with isbn %s not exist.", isbn), HttpStatus.BAD_REQUEST);
+            throw new ApiException(String.format("Livro com isbn %s não existe.", isbn), HttpStatus.BAD_REQUEST);
         }
 
         bookRepository.delete(isBookExist.get());
 
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Book deleted successfully."
+                "message", "Livro removido com sucesso."
         ));
 
     }

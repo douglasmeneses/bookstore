@@ -1,8 +1,7 @@
-package io.github.bookstore.back_end.dto.book;
+package io.github.bookstore.back_end.model.EntityDTO;
 
-import io.github.bookstore.back_end.models.enums.Language;
+import io.github.bookstore.back_end.model.enums.Language;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -17,7 +16,7 @@ public record BookCreateDTO(
      @NotBlank(message = "Não pode ser vazio.")
      String image,
      @NotBlank(message = "Não pode ser vazio.")
-     String publisherCnpj,
+     String publisherId,
      @NotNull(message = "Não pode ser nulo.")
      int stockQuantity,
      @NotNull(message = "Não pode ser nulo.")

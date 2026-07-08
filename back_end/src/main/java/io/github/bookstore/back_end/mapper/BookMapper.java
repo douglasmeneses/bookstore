@@ -1,8 +1,8 @@
 package io.github.bookstore.back_end.mapper;
 
-import io.github.bookstore.back_end.dto.book.BookCreateDTO;
-import io.github.bookstore.back_end.dto.book.BookUpdateDTO;
-import io.github.bookstore.back_end.models.Book;
+import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.model.Entity.Book;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

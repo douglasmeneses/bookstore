@@ -1,6 +1,6 @@
 package io.github.bookstore.back_end.repositories;
 
-import io.github.bookstore.back_end.models.Book;
+import io.github.bookstore.back_end.model.Entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package io.github.bookstore.back_end.models.enums;
+package io.github.bookstore.back_end.model.enums;
 
 public enum Language {
     PORTUGUESE,

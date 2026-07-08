@@ -1,12 +1,15 @@
 package io.github.bookstore.back_end.services;
 
-import io.github.bookstore.back_end.dto.book.BookCreateDTO;
-import io.github.bookstore.back_end.dto.book.BookUpdateDTO;
-import io.github.bookstore.back_end.dto.exceptions.ApiException;
+import io.github.bookstore.back_end.model.Entity.Publisher;
+import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.exceptions.ApiException;
 import io.github.bookstore.back_end.mapper.BookMapper;
-import io.github.bookstore.back_end.models.Book;
-import io.github.bookstore.back_end.models.enums.Language;
+import io.github.bookstore.back_end.model.Entity.Book;
+import io.github.bookstore.back_end.model.enums.Language;
 import io.github.bookstore.back_end.repositories.BookRepository;
+import io.github.bookstore.back_end.service.BookService;
+import io.github.bookstore.back_end.service.PublisherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,9 +43,11 @@ class BookServiceTest {
 
     private BookService bookService;
 
+    private PublisherService publisherService;
+
     @BeforeEach
     void setUp() {
-        bookService = new BookService(bookMapper, bookRepository);
+        bookService = new BookService(bookMapper, bookRepository, publisherService);
     }
 
     @Test
@@ -180,7 +185,7 @@ class BookServiceTest {
         book.setTitle("Clean Code");
         book.setDescription("A practical handbook of agile software craftsmanship.");
         book.setImage("clean-code.jpg");
-        book.setPublisherCnpj("12345678000199");
+        book.setPublisher(new Publisher());
         book.setStockQuantity(10);
         book.setPrice(99.90);
         book.setReview(4.8);

@@ -1,8 +1,8 @@
 package io.github.bookstore.back_end.controllers;
 
-import io.github.bookstore.back_end.dto.book.BookCreateDTO;
-import io.github.bookstore.back_end.dto.book.BookUpdateDTO;
-import io.github.bookstore.back_end.services.BookService;
+import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.service.BookService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
