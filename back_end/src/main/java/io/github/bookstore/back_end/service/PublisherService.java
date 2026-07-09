@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +21,10 @@ public class PublisherService {
 
     private PublisherRepository publisherRepository;
     private PublisherMapper publisherMapper;
+
+    public Optional<Publisher> findPublisherById(String publisherId) {
+        return publisherRepository.findById(UUID.fromString(publisherId));
+    }
 
     public ResponseEntity<Publisher> getPublisherByCnpj(String cnpj) {
         Optional<Publisher> isPublisherExist = publisherRepository.findByCnpj(cnpj);
