@@ -1,8 +1,7 @@
 package io.github.bookstore.back_end.service;
 
 import io.github.bookstore.back_end.model.Entity.Publisher;
-import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
-import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookDTO;
 import io.github.bookstore.back_end.exceptions.ApiException;
 import io.github.bookstore.back_end.mapper.BookMapper;
 import io.github.bookstore.back_end.model.Entity.Book;
@@ -33,20 +32,20 @@ public class BookService {
         return ResponseEntity.status(HttpStatus.CREATED).body(isBookExist.get());
     }
 
-    public ResponseEntity<Book> createBook(BookCreateDTO bookCreateDTO) {
-        Optional<Book> isBookExist = bookRepository.findById(bookCreateDTO.isbn());
+    public ResponseEntity<Book> createBook(BookDTO bookDTO) {
+        Optional<Book> isBookExist = bookRepository.findById(bookDTO.isbn());
 
         if (isBookExist.isPresent()) {
-            throw new ApiException(String.format("Livro com isbn %s já existe.", bookCreateDTO.isbn()), HttpStatus.BAD_REQUEST);
+            throw new ApiException(String.format("Livro com isbn %s já existe.", bookDTO.isbn()), HttpStatus.BAD_REQUEST);
         }
 
-        Optional<Publisher> isPublishExist = publisherService.findPublisherById(bookCreateDTO.publisherId());
+        Optional<Publisher> isPublishExist = publisherService.findPublisherById(bookDTO.publisherId());
 
         if (isPublishExist.isEmpty()) {
             throw new ApiException("Editora com não foi encontrada.", HttpStatus.BAD_REQUEST);
         }
 
-        Book book = bookMapper.toEntity(bookCreateDTO);
+        Book book = bookMapper.toEntity(bookDTO);
         book.setPublisher(isPublishExist.get());
         bookRepository.save(book);
 
@@ -54,15 +53,15 @@ public class BookService {
 
     }
 
-    public ResponseEntity<Map<String, String>> updateBook(BookUpdateDTO bookUpdateDTO) {
-        Optional<Book> isBookExist = bookRepository.findById(bookUpdateDTO.isbn());
+    public ResponseEntity<Map<String, String>> updateBook(BookDTO bookDTO) {
+        Optional<Book> isBookExist = bookRepository.findById(bookDTO.isbn());
 
         if (isBookExist.isEmpty()) {
-            throw new ApiException(String.format("Livro com isbn %s não existe.", bookUpdateDTO.isbn()), HttpStatus.BAD_REQUEST);
+            throw new ApiException(String.format("Livro com isbn %s não existe.", bookDTO.isbn()), HttpStatus.BAD_REQUEST);
         }
 
         Book book = isBookExist.get();
-        bookMapper.updateEntityFromDto(bookUpdateDTO, book);
+        bookMapper.updateEntityFromDto(bookDTO, book);
         bookRepository.save(book);
 
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(

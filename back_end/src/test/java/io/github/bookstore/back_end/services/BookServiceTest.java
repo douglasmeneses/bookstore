@@ -1,8 +1,7 @@
 package io.github.bookstore.back_end.services;
 
 import io.github.bookstore.back_end.model.Entity.Publisher;
-import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
-import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookDTO;
 import io.github.bookstore.back_end.exceptions.ApiException;
 import io.github.bookstore.back_end.mapper.BookMapper;
 import io.github.bookstore.back_end.model.Entity.Book;
@@ -76,7 +75,7 @@ class BookServiceTest {
 
     @Test
     void createBookWhenIsbnIsNewSavesAndReturnsCreatedBook() {
-        BookCreateDTO dto = createDTO();
+        BookDTO dto = createDTO();
         Book book = book();
         when(bookRepository.findById(ISBN)).thenReturn(Optional.empty());
         when(bookMapper.toEntity(dto)).thenReturn(book);
@@ -90,7 +89,7 @@ class BookServiceTest {
 
     @Test
     void createBookWhenIsbnAlreadyExistsThrowsApiException() {
-        BookCreateDTO dto = createDTO();
+        BookDTO dto = createDTO();
         when(bookRepository.findById(ISBN)).thenReturn(Optional.of(book()));
 
         ApiException exception = assertThrows(ApiException.class, () -> bookService.createBook(dto));
@@ -103,7 +102,7 @@ class BookServiceTest {
 
     @Test
     void updateBookWhenBookExistsMapsDtoSavesAndReturnsSuccessMessage() {
-        BookUpdateDTO dto = updateDTO();
+        BookDTO dto = updateDTO();
         Book book = book();
         when(bookRepository.findById(ISBN)).thenReturn(Optional.of(book));
 
@@ -117,7 +116,7 @@ class BookServiceTest {
 
     @Test
     void updateBookWhenBookDoesNotExistThrowsApiException() {
-        BookUpdateDTO dto = updateDTO();
+        BookDTO dto = updateDTO();
         when(bookRepository.findById(ISBN)).thenReturn(Optional.empty());
 
         ApiException exception = assertThrows(ApiException.class, () -> bookService.updateBook(dto));
@@ -151,8 +150,8 @@ class BookServiceTest {
         verify(bookRepository, never()).delete(any(Book.class));
     }
 
-    private static BookCreateDTO createDTO() {
-        return new BookCreateDTO(
+    private static BookDTO createDTO() {
+        return new BookDTO(
                 ISBN,
                 "Clean Code",
                 "A practical handbook of agile software craftsmanship.",
@@ -166,8 +165,8 @@ class BookServiceTest {
         );
     }
 
-    private static BookUpdateDTO updateDTO() {
-        return new BookUpdateDTO(
+    private static BookDTO updateDTO() {
+        return new BookDTO(
                 ISBN,
                 "Clean Code - Updated",
                 "Updated description.",

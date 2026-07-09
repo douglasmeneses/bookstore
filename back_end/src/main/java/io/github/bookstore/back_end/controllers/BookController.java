@@ -1,7 +1,6 @@
 package io.github.bookstore.back_end.controllers;
 
-import io.github.bookstore.back_end.model.EntityDTO.BookCreateDTO;
-import io.github.bookstore.back_end.model.EntityDTO.BookUpdateDTO;
+import io.github.bookstore.back_end.model.EntityDTO.BookDTO;
 import io.github.bookstore.back_end.service.BookService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,13 +20,13 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createBook(@Valid @RequestBody BookCreateDTO bookCreateDTO) {
-        return bookService.createBook(bookCreateDTO);
+    public ResponseEntity<?> createBook(@Valid @RequestBody BookDTO bookDTO) {
+        return bookService.createBook(bookDTO);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateBook(@Valid @RequestBody BookUpdateDTO bookUpdateDTO) {
-        return bookService.updateBook(bookUpdateDTO);
+    public ResponseEntity<?> updateBook(@Valid @RequestBody BookDTO bookDTO) {
+        return bookService.updateBook(bookDTO);
     }
 
     @DeleteMapping("/{isbn}")
