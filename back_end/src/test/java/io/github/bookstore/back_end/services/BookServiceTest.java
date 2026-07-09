@@ -41,8 +41,10 @@ class BookServiceTest {
     @Mock
     private BookRepository bookRepository;
 
+    @Mock
     private BookService bookService;
 
+    @Mock
     private PublisherService publisherService;
 
     @BeforeEach

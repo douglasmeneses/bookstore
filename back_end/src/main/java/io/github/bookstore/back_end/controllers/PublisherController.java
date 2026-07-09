@@ -31,7 +31,7 @@ public class PublisherController {
     }
 
     @DeleteMapping("/{cnpj}")
-    public ResponseEntity<?> deletePublisherByIsbn(@Valid @PathVariable @Size(max = 14, min = 14, message = "CNPJ deve conter 14 caracteres.") String cnpj) {
+    public ResponseEntity<?> deletePublisherByCnpj(@Valid @PathVariable @Size(max = 14, min = 14, message = "CNPJ deve conter 14 caracteres.") String cnpj) {
         return publisherService.deletePublisher(cnpj);
     }
     
