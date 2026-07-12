@@ -1,14 +1,16 @@
 # 📚 Projeto BOOKSTORE
 
 > Este documento descreve a arquitetura da interface, os componentes utilizados, a estrutura do projeto e o processo de instalação.
+
+> https://ui.shadcn.com/docs/components , link dos componentes para ver os codigos e tirar mais duvidas.
 ---
 # 📑 Sumário
 
 - Instalação do shadcn/ui
 - Componentes Utilizados
 - Organização das Telas
-- Boas Práticas
-- Próximos Passos
+- Componentes Utilizados
+- Extras(Explicações)
 ---
 # 🧩 Instalando o shadcn/ui
 
