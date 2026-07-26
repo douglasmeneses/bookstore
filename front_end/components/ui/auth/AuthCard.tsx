@@ -15,11 +15,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function CardComponent() {
+export function AuthCard() {
   const [showPassword, setShowPassword] = React.useState(false);
 
   return (
-    <Card className="w-full max-w-md rounded-3xl border border-white bg-white p-3 shadow-x1">
+    <Card className="w-full max-w-lg rounded-3xl border border-white bg-white p-3 shadow-x1">
       <CardHeader>
         <CardTitle className="font-heading text-3xl font-normal normal-case tracking-normal text-[#2b241d] text-center">
           Bem-vindo de volta
